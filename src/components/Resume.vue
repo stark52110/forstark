@@ -2,7 +2,7 @@
 <div class="all">
   <div class="main">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane name="first">
+    <el-tab-pane name="first" class="maintext">
       <span slot="label"><i class="el-icon-user"></i>个人信息</span>
       <p>姓 名：但功达</p>
       <p>手 机 号 ： 17352468362</p>
@@ -31,7 +31,7 @@
       <p>2.对照页面需求设计数据库，并通过Ajax连接后台数据库数据，并通过js，jquery技术渲染到前端页面。</p>
       <p>3.利用空余的时间使用vue-cli完成项目，作品详见个人作品中</p>
     </el-tab-pane>
-       <el-button @click="quit">返回主页</el-button>
+       <el-button @click="quit" class="quit">返回主页</el-button>
   </el-tabs>
   </div>
 </div>
@@ -51,7 +51,15 @@ export default {
       },
       quit(){
         this.$router.push("/home")
+        this.opensuc("退出成功")
       },
+       opensuc(words){
+             this.$message({
+         type: 'success',
+          showClose: true,
+          message: words
+        });
+        },
     }
   };
 </script>
@@ -66,13 +74,30 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color:#2b4b6b;
+     background-image: url(../assets/beijin.jpg);
+    background-size: 100% 100%;
+    background-origin: content-box;
+    height: 100%;
     }
     .main{
-      width: 700px;
-      height: 600px;
+      max-width: 750px;
+      box-sizing: border-box;
+      margin: 20px 0;
       position: absolute;
       border: 1px solid black;
       border-radius: 3px;
+       background-color: rgb(74, 80, 104);
     }
+  //  .main:hover{
+  //         transition: all 0.5s ease;
+  // background-color: rgba(0, 0, 0, 0.4);
+  //  }
+  //   }
+  //  .main:hover .main::before{
+  //               transition: all 0.3s ease;
+  // background-color: rgba(0, 0, 0, 0.2);
+  //   }
+    // .quit{
+    //   margin: 0 400px;
+    // }
 </style>

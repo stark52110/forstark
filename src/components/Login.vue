@@ -1,5 +1,12 @@
 <template>
+<!-- <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"> -->
     <div class="login_containter">
+          <!-- <div class="block" v-for="fit in fits" :key="fit">
+         <el-image
+      style="width: 100px; height: 100px"
+      :src="url"
+      :fit="fit"></el-image>
+       </div> -->
         <div class="login_box">
             <!-- 头像区 -->
             <div class="avatar_box">
@@ -31,7 +38,7 @@ export default {
             // 登陆表单的数据绑定对象
             loginForm:{
                 username:"admin",
-                password:"123456"
+                password:"123456",
             },
              // 表单验证规则对象
     loginRules:{
@@ -58,23 +65,40 @@ export default {
             this.$refs.loginFormRef.validate(async valid=>{
                if(!valid) return;
                const {data:res}=await this.$http.post("login",this.loginForm);
-               console.log(res.meta.status)
-               if(res.meta.status !== 200) return this.$message.error("登陆失败！");
-               this.$message.success("登陆成功");
+               if(res.meta.status !== 200) return this.openfal();
+               this.opensuc();
             //    将token存储到window的sessionstorage中 作为登陆状态保证
                window.sessionStorage.setItem("token",res.data.token);
             //    通过路由push跳转
                this.$router.push("/home")
             })
         },
+        opensuc() {
+        this.$message({
+          showClose: true,
+          message: '登陆成功',
+          type:"success"
+        });
+         },
+        openfal() {
+        this.$message({
+          showClose: true,
+          message: '登陆失败',
+          type: 'error'
+        });
+      },
     },
 }
 </script>
 
 <style scoped lang='less'>
 .login_containter{
-    background-color: #2b4b6b;
+    background-image: url(../assets/beijin.jpg);
+    background-size: 100% 100%;
+    background-origin: content-box;
+    background-repeat:no-repeat; 
     height: 100%;
+    width: 100%;
 }
 .login_box{
     width: 450px;
@@ -86,6 +110,7 @@ export default {
     left: 50%;
     margin-left: -225px;
     margin-top: -150px;
+
 }
 img{
     width: 150px;
@@ -101,7 +126,7 @@ img{
     width: 100%;
     padding: 0 30px;
     // 盒子溢出处理  （怪异盒子）
-    box-sizing: border-box;
+    box-sizing: border-box;   
 }
 .btns{
     display: flex;

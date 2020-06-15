@@ -14,7 +14,7 @@
         <img src="../assets/text.png" alt="item-image-2">
       </div>
       <div class="item-text">
-        <div class="item-title">「个人作品」</div>
+        <div class="item-title">「我的博客」</div>
         <div class="item-desc"></div>
       </div>
     </section>
@@ -50,9 +50,9 @@ export default {
 
 <style lang="less" scoped>
 * {
+  
   box-sizing: border-box;
 }
-
 html, body {
   padding: 0;
   margin: 0;
@@ -77,6 +77,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: url(../assets/beijin.jpg);
+  background-size: 100% 100%;
+  background-origin: content-box;
+  background-repeat:no-repeat; 
+  // z-index: -2;
 }
 
 .list-item {
@@ -86,8 +91,9 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 100%;
-  height: 55vh;
+  width: 50%;
+  height: 30vh;
+  margin-top: 22.5px;
   overflow: hidden;
 }
 
@@ -100,7 +106,7 @@ body {
   width: 100%;
   height: 100%;
   transform: translateZ(-50px) scale(2.4);
-  z-index: -1;
+  // z-index: -1;
 }
 
 .item-image::before {
@@ -110,20 +116,21 @@ body {
   width: 100%;
   height: 100%;
   transition: all 0.3s ease;
-  background-color: rgba(0, 0, 0, .4);
+
 }
 
 .item-image img {
-  display: block;
+  // display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  // object-fit: cover;
 }
 
 .item-text {
   font-family: 'Courier New', Courier, monospace;
   text-align: center;
   color: #ffffff;
+    z-index: 1;
 }
 
 .item-title {
@@ -131,7 +138,6 @@ body {
   font-weight: bold;
   margin-bottom: 20px;
 }
-
 .item-desc {
   font-size: 1.2rem;
 }
