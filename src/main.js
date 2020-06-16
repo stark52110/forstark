@@ -5,7 +5,11 @@ import './plugins/element.js'
 import "./assets/css/global.css"
 import Bmob from "hydrogen-js-sdk";
 import axios from 'axios'
+// 导入Nprogress包所对应的js和css
+import "nprogress/nprogress.css"
+import Nprogress from "nprogress"
 
+// axios全局接口（仅对登陆）
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 
 Vue.prototype.$http = axios
@@ -13,16 +17,23 @@ Vue.prototype.$http = axios
 Vue.prototype.Bmob = Bmob
 
 Vue.config.productionTip = false
+
 // 设置axiox拦截器 验证token
+// 在request拦截器中，展示进度条Nprogress.start()
 axios.interceptors.request.use(config=>{
   // 为config中的headers添加authorization并且挂载token值
+  Nprogress.start()
   config.headers.Authorization =window.sessionStorage.getItem("token")
   return config
 })
-
+// 在response拦截器中，隐藏进度条Nprogress.done()
+axios.interceptors.response.use(config=>{
+  Nprogress.done()
+  return config
+})
 Bmob.initialize("458e573be207c0ad", "971205");
 
-Bmob.debug(true)
+// Bmob.debug(true)
 
 // 设置自定义组件 
 Vue.directive("rainbow",{
