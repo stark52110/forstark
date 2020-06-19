@@ -9,9 +9,10 @@
       <p>邮 箱： 924931501@qq.com </p>
       <p>毕 业 学 校：南京邮电大学通达学院 （2016-2020）</p>
       <p>专 业：软件工程（本科）</p>
+      <p>联 系 电 话：17352468362</p>
       <p>自 我 评 价：从大一就开始勤工俭学，抗压吃苦能力极强。自认为对工作认 真负责，有上进心，并且十分热爱程序员这份事业，希望能在 计算机行业长期发展。
 </p>
-    
+
     </el-tab-pane>
     <el-tab-pane>
       <span slot="label"><i class="el-icon-s-opportunity"></i>专业技能</span>
@@ -40,28 +41,28 @@
 
 <script>
 export default {
-    data() {
-      return {
-        activeName: 'first'
-      };
-    },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-      quit(){
-        this.$router.push("/home")
-        this.opensuc("退出成功")
-      },
-       opensuc(words){
-             this.$message({
-         type: 'success',
-          showClose: true,
-          message: words
-        });
-        },
+  data () {
+    return {
+      activeName: 'first'
     }
-  };
+  },
+  methods: {
+    handleClick (tab, event) {
+      console.log(tab, event)
+    },
+    quit () {
+      this.$router.push('/home')
+      this.opensuc('退出成功')
+    },
+    opensuc (words) {
+      this.$message({
+        type: 'success',
+        showClose: true,
+        message: words
+      })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

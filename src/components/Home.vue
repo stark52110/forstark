@@ -2,7 +2,7 @@
 <div class="main">
     <section class="list-item" @click="toresume">
       <div class="item-image">
-        <img src="../assets/title.png" alt="item-image-1">
+        <img src="../assets/jianjie.jpg" alt="简历">
       </div>
       <div class="item-text">
         <div class="item-title">「个人简历」</div>
@@ -11,7 +11,7 @@
     </section>
     <section class="list-item" @click="toopus">
       <div class="item-image">
-        <img src="../assets/text.png" alt="item-image-2">
+         <img src="../assets/blog.jpg" alt="博客">
       </div>
       <div class="item-text">
         <div class="item-title">「我的博客」</div>
@@ -20,7 +20,7 @@
     </section>
     <section class="list-item" @click="logout">
       <div class="item-image">
-        <img src="../assets/quit.png" alt="item-image-3">
+         <img src="../assets/quit.jpg" alt="退出">
       </div>
       <div class="item-text" >
         <div class="item-title">「退出」</div>
@@ -32,25 +32,24 @@
 
 <script>
 export default {
-    methods: {
-        logout(){
-            window.sessionStorage.clear();
-            this.$router.push("/login")
-            this.$message.success("退出成功")
-        },
-        toresume(){
-            this.$router.push("/resume")
-        },
-        toopus(){
-            this.$router.push("/opus")
-        }
+  methods: {
+    logout () {
+      window.sessionStorage.clear()
+      this.$router.push('/login')
+      this.$message.success('退出成功')
     },
+    toresume () {
+      this.$router.push('/resume')
+    },
+    toopus () {
+      this.$router.push('/opus')
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
 * {
-  
   box-sizing: border-box;
 }
 html, body {
@@ -80,7 +79,7 @@ body {
   background-image: url(../assets/beijin.jpg);
   background-size: 100% 100%;
   background-origin: content-box;
-  background-repeat:no-repeat; 
+  background-repeat:no-repeat;
   // z-index: -2;
 }
 
@@ -98,15 +97,16 @@ body {
 }
 
 .list-item:hover .item-image::before {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .item-image {
   position: absolute;
   width: 100%;
   height: 100%;
-  transform: translateZ(-50px) scale(2.4);
+  // transform: translateZ(-50px) scale(2.4);
   // z-index: -1;
+  // background-color: rgb(105, 133, 156);
 }
 
 .item-image::before {

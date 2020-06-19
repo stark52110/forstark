@@ -23,7 +23,7 @@
             <el-input  type="password" placeholder="请输入密码" prefix-icon="el-icon-key" v-model="loginForm.password" ></el-input>
             </el-form-item>
             <el-form-item class="btns">
-            <el-button type="primary" @click="login">登陆</el-button>
+            <el-button type="primary" @click="login(loginForm.username,loginForm.password)">登陆</el-button>
             <el-button type="info" @click="resetloginForm">重置</el-button>
             </el-form-item>
             </el-form>
@@ -32,62 +32,74 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-    data() {
-        return {
-            // 登陆表单的数据绑定对象
-            loginForm:{
-                username:"admin",
-                password:"123456",
-            },
-             // 表单验证规则对象
-    loginRules:{
-        // 验证合法规则
-        username:[
-            // 用户名
-            {required:true,message:"请输入账号",trigger:"blur"},
-            {min:3,max:8,message:"长度在3到8个字符",trigger:"blur"}
-        ],
-        password:[
-            // 密码
-            {required:true,message:"请输入密码",trigger:"blur"},
-            {min:3,max:8,message:"长度在3到8个字符",trigger:"blur"}
-        ]
-    }
-        }
-    },
-    methods: {
-        resetloginForm(){
-            // 通过对$refs的属性绑定上的loginFormRef获取到表单数据，并使用element.ui中的resetFields()方法
-            this.$refs.loginFormRef.resetFields()
-        },
-        login(){
-            this.$refs.loginFormRef.validate(async valid=>{
-               if(!valid) return;
-               const {data:res}=await this.$http.post("login",this.loginForm);
-               if(res.meta.status !== 200) return this.openfal();
-               this.opensuc();
-            //    将token存储到window的sessionstorage中 作为登陆状态保证
-               window.sessionStorage.setItem("token",res.data.token);
-            //    通过路由push跳转
-               this.$router.push("/home")
-            })
-        },
-        opensuc() {
-        this.$message({
-          showClose: true,
-          message: '登陆成功',
-          type:"success"
-        });
-         },
-        openfal() {
-        this.$message({
-          showClose: true,
-          message: '登陆失败',
-          type: 'error'
-        });
+  data () {
+    return {
+      // 登陆表单的数据绑定对象
+      loginForm: {
+        username: '',
+        password: ''
       },
+      // 表单验证规则对象
+      loginRules: {
+        // 验证合法规则
+        username: [
+          // 用户名
+          { required: true, message: '请输入账号', trigger: 'blur' },
+          { min: 3, max: 8, message: '长度在3到8个字符', trigger: 'blur' }
+        ],
+        password: [
+          // 密码
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 3, max: 8, message: '长度在3到8个字符', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  methods: {
+    resetloginForm () {
+      // 通过对$refs的属性绑定上的loginFormRef获取到表单数据，并使用element.ui中的resetFields()方法
+      this.$refs.loginFormRef.resetFields()
     },
+    login (username,password) {
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        // console.log(loginForm.password)
+        await Bmob.User.login(username,password).then(res => {
+              this.opensuc()
+              window.sessionStorage.setItem("token",res.sessionToken)
+               this.$router.push('/home')
+               }).catch(err => {
+              this.openfal()
+               });
+        //    const {data:res}=await axios.post("login",this.loginForm);
+        // const { data: res } = await axios.post('login', this.loginForm)
+        // //    const nowres = res.data
+        // //    console.log(nowres)
+        // if (res.meta.status !== 200) return 
+        // //    将token存储到window的sessionstorage中 作为登陆状态保证
+        // window.sessionStorage.setItem('token', res.data.token)
+        // //    通过路由push跳转
+        // 
+        // this.opensuc()
+      })
+    },
+    opensuc () {
+      this.$message({
+        showClose: true,
+        message: '登陆成功',
+        type: 'success'
+      })
+    },
+    openfal () {
+      this.$message({
+        showClose: true,
+        message: '账号或密码错误',
+        type: 'error'
+      })
+    }
+  }
 }
 </script>
 
@@ -96,14 +108,14 @@ export default {
     background-image: url(../assets/beijin.jpg);
     background-size: 100% 100%;
     background-origin: content-box;
-    background-repeat:no-repeat; 
+    background-repeat:no-repeat;
     height: 100%;
     width: 100%;
 }
 .login_box{
     width: 450px;
     height: 300px;
-    background-color: rgba(255, 255, 255, 0.815);
+    background-color: rgba(29, 26, 26, 0.815);
     border-radius: 3px;
     position: absolute;
     top: 50%;
@@ -126,7 +138,7 @@ img{
     width: 100%;
     padding: 0 30px;
     // 盒子溢出处理  （怪异盒子）
-    box-sizing: border-box;   
+    box-sizing: border-box;
 }
 .btns{
     display: flex;
